@@ -1,0 +1,2 @@
+1. Add exception for season older than 71, because API does not provide data for them
+2. Add comments and make the code cleaner

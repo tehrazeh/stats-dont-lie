@@ -41,6 +41,8 @@ async function getPlayer(name) {
         tag.innerHTML = `There is no player named ${name} that ever played in the NBA`  
     } else if (playerInfo.data.length > 1) { // more than one player with that name
         tag.innerHTML = `There is more than one player named ${name} that played in ${season} season!\nPlease, specify the name more.`
+    } else if (season < 1981) {
+        tag.innerHTML = `There is no data for seasons older than 1981`
     } else { // exactly one player found
         playerStats.id = playerInfo.data[0].id
         searchStatsUrl = `https://www.balldontlie.io/api/v1/season_averages?season=${season}&player_ids[]=${playerStats.id}`

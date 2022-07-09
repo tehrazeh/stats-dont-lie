@@ -1,2 +1,2 @@
-1. Add exception for season older than 71, because API does not provide data for them
-2. Add comments and make the code cleaner
+1. Add another API call to retrieve image for every player, this way images/players folder will be deleted
+ since all images will be retrieved from the internet

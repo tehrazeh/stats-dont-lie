@@ -119,15 +119,8 @@ h1 {
     background: #4361ee;
     border:  6px solid #1d3557;
     border-radius: var(--main-radius);
-    padding: 5px;
+    padding: 0px 10px;
 }
-
-/* .mainstats {
-    display:inline;
-    background: #4361ee;
-    border:  6px solid #1d3557;
-    border-radius: var(--main-radius);
-} */
 
 #badges {
     display:flex;

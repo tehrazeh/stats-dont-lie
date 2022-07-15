@@ -1,2 +1,2 @@
-1. Add another API call to retrieve image for every player, this way images/players folder will be deleted
- since all images will be retrieved from the internet
+1. Make the design responsive
+2. Add text when hovering over images

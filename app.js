@@ -9,10 +9,12 @@ let playerInfo // name + size + id + team, first search, no stats
 let playerStatsResponse // stats based on id search
 let playerStats = {} // object that stores found player's stats
 let badges = [] // badges info for player
+let playerPhotoId = 0 // id for photo retrieval
 
 // links to retrieve the data
 let searchPlayerUrl = "https://www.balldontlie.io/api/v1/players"
 let searchStatsUrl
+let photoSearchUrl
 
 // HTML elements that will be changed depenging on the search result
 let tag = document.getElementById('search_result')
@@ -93,9 +95,9 @@ async function getPlayerStats(url) {
             playerStats.min = playerStatsResponse.data[0].min
 
             // functions that display stats, photos of player and team, and earned badges (if there are any)
+            displayPhotos()
             displayStats()
             displayProfile()
-            displayPhotos()
             createBadges()
         }
 
@@ -176,22 +178,42 @@ displayBadges = () => {
 }
 
 // function that displays images of player and team
-displayPhotos = () => {
- 
-    // display image of the team
+async function displayPhotos() {
+    let photoElement = document.getElementById('playerPhoto')
+
+    // the database requires to specify the season. no data can be acessed if the season is older than 2012
+    if (season >= 2012) {
+        let result = await fetch(`http://data.nba.net/data/10s/prod/v1/${season}/players.json`).then((response) => response.json())
+        let arrOfIds = result.league.standard
+        for (let i = 0; i < arrOfIds.length; i++) {
+            if (arrOfIds[i].firstName == playerInfo.data[0].first_name && arrOfIds[i].lastName == playerInfo.data[0].last_name) {
+                playerPhotoId = arrOfIds[i].personId
+            }
+        }
+
+        // id for player not found
+        if (playerPhotoId === 0) {
+            photoElement.innerHTML = 
+            `<label>Player:</label>
+            <img class="playerImage" 
+            alt="Error Displaying Image">`
+        } else { // id found, retrieve the photo
+            photoElement.innerHTML = 
+            `<label>Player:</label>
+            <img class="playerImage" 
+            alt="Error Displaying Image"
+            src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerPhotoId}.png">`
+        }
+    } else { // season is 2012 and newer, no photo can be accessed
+        photoElement.innerHTML = 
+        `<label>Player:</label>
+        <img class="playerImage" 
+        alt="There is no photos for season older than 2012">`
+    }
+
+    // display current/last team of this player
     document.getElementById('teamContainer').innerHTML = `
         <label>Current (Last) Team:</label>
         <img class="teamImage" src="images/teams/${playerStats.team}.png">`
-
-    // display image of the player
-
-    document.getElementById('playerPhoto').innerHTML = 
-        `<label>Player:</label>
-        <img class="playerImage" 
-        alt="There is no photo for ${playerStats.name}. 
-        Photos only for:
-        Lebron James, Michael Jordan, Kobe Bryant, Tim Duncan, Stephen Curry, 
-        Kevin Durant, Kawhi Leonard"
-        src="images/players/${playerStats.name.split(' ').join('').toLowerCase()}.png">`
 }
 

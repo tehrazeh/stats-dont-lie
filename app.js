@@ -139,22 +139,22 @@ createBadges = () => {
 
     // logical block of earned badge verification
     if (playerStats.pts >= 25) {
-        badges.push('scorer')
+        badges.push({ name: 'scorer', description: '25+ PTS'})
     }
     if (playerStats.reb >= 10) {
-        badges.push('rebounder')
+        badges.push({ name: 'rebounder', description: '10+ REB'})
     }
     if (playerStats.ast >= 8) {
-        badges.push('passer')
+        badges.push({ name: 'passer', description: '8+ AST'})
     }
     if (playerStats.blk >= 1.5) {
-        badges.push('rimprotector')
+        badges.push({ name: 'rimprotector', description: '1.5+ BLK'})
     }
     if (playerStats.stl >= 1.5) {
-        badges.push('stealer')
+        badges.push({ name: 'stealer', description: '1.5+ STL'})
     }
     if (playerStats.fg3_pct >= 0.4) {
-        badges.push('sharpshooter')
+        badges.push({ name: 'sharpshooter', description: '40%+ 3PT'})
     }
 
     // block that checks if player earned any badges
@@ -169,12 +169,22 @@ createBadges = () => {
 
 // function that displays player's badges for the season. Runs only if player has 1+ badges.
 displayBadges = () => {
-    badges.forEach(badge => {
+    for (let badge of badges) {
         badgesContainer.innerHTML += 
         `<div class="badgeContainer">
-            <img class="badge" src="images/badges/${badge}.png">
+            <img class="badge" src="images/badges/${badge.name}.png">
+            <p class="badge_description">${badge.description}</p>
         </div>`
-    })
+    }
+    // badges.forEach(badge => {
+
+    //     //TODO: FIGURE OUT HOW TO ADD A DESCRIPTION BASED ON A BADGE INSTEAD OF HARD CODED BALSHO HYU
+    //     badgesContainer.innerHTML += 
+    //     `<div class="badgeContainer">
+    //         <img class="badge" src="images/badges/${badge}.png">
+    //         <p class="badge_description">balshoi hyi</p>
+    //     </div>`
+    // })
 }
 
 // function that displays images of player and team

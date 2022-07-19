@@ -135,7 +135,9 @@ h1 {
 }
 
 .badgeContainer {
+    position: relative;
     display:flex;
+    margin: 2px;
     flex-grow: 1;
     flex-direction: column;
     justify-content: center;
@@ -168,4 +170,30 @@ main {
 
 #playerPhoto, #teamContainer {
     max-width: 400px;
+}
+
+.playerImage, .teamImage {
+    display: block;
+}
+
+.badge_description {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    opacity: 0;
+    margin: auto;
+    padding: 0;
+    transition: opacity 0.25s;
+}
+
+.badge_description:hover {
+    opacity: 1;
 }

@@ -66,7 +66,7 @@ async function getPlayer(name) {
         playerStats.height_cm = Math.round(playerInfo.data[0].height_feet * feetToCm  + playerInfo.data[0].height_inches * inchToCm)
         playerStats.weight_pounds = playerInfo.data[0].weight_pounds
         playerStats.weight_kilos = Math.round(playerInfo.data[0].weight_pounds * poundToKg)
-        playerStats.team = playerInfo.data[0].team.name.toLowerCase()
+        playerStats.team = playerInfo.data[0].team.name.toLowerCase().split(' ').join('') // for teams like trail blazers we eliminate spaces
 
         // with the player's id and season, find the stat averages
         searchStatsUrl = `https://www.balldontlie.io/api/v1/season_averages?season=${season}&player_ids[]=${playerStats.id}`
@@ -176,15 +176,6 @@ displayBadges = () => {
             <p class="badge_description">${badge.description}</p>
         </div>`
     }
-    // badges.forEach(badge => {
-
-    //     //TODO: FIGURE OUT HOW TO ADD A DESCRIPTION BASED ON A BADGE INSTEAD OF HARD CODED BALSHO HYU
-    //     badgesContainer.innerHTML += 
-    //     `<div class="badgeContainer">
-    //         <img class="badge" src="images/badges/${badge}.png">
-    //         <p class="badge_description">balshoi hyi</p>
-    //     </div>`
-    // })
 }
 
 // function that displays images of player and team
@@ -225,5 +216,7 @@ async function displayPhotos() {
     document.getElementById('teamContainer').innerHTML = `
         <label>Current (Last) Team:</label>
         <img class="teamImage" src="images/teams/${playerStats.team}.png">`
+
+        console.log(playerStats.team)
 }
 

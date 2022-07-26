@@ -1,2 +1,2 @@
 1. Make the design responsive
-2. Add text when hovering over images
+

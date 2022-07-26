@@ -1,2 +1,2 @@
-1. Make the design responsive
+1. Make the design responsive // all done for now, learn more and improve 
 

@@ -186,6 +186,7 @@ async function displayPhotos() {
     if (season >= 2012) {
         let result = await fetch(`http://data.nba.net/data/10s/prod/v1/${season}/players.json`).then((response) => response.json())
         let arrOfIds = result.league.standard
+
         for (let i = 0; i < arrOfIds.length; i++) {
             if (arrOfIds[i].firstName == playerInfo.data[0].first_name && arrOfIds[i].lastName == playerInfo.data[0].last_name) {
                 playerPhotoId = arrOfIds[i].personId
@@ -217,6 +218,5 @@ async function displayPhotos() {
         <label>Current (Last) Team:</label>
         <img class="teamImage" src="images/teams/${playerStats.team}.png">`
 
-        console.log(playerStats.team)
 }
 

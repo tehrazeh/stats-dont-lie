@@ -136,7 +136,7 @@ displayProfile = () => {
 
 // function that analyzes if player earned any badges.
 createBadges = () => {
-
+    console.log(playerStats)
     // logical block of earned badge verification
     if (playerStats.pts >= 25) {
         badges.push({ name: 'scorer', description: '25+ PTS'})

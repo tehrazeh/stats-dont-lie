@@ -256,9 +256,10 @@ async function displayPhotos() {
         // id for player not found
         if (player_profile.photoId === 0) {
             photoElement.innerHTML = 
-            `<label>Player:</label>
+            `<label>Error displaying player image</label>
             <img class="playerImage" 
-            alt="Error Displaying Image">`
+            alt="Error Displaying Image"
+            src="/images/not_player.png">`
         } else { // id found, retrieve the photo
             photoElement.innerHTML = 
             `<label>Player:</label>
@@ -268,9 +269,10 @@ async function displayPhotos() {
         }
     } else { // season is 2012 and newer, no photo can be accessed
         photoElement.innerHTML = 
-        `<label>Player:</label>
+        `<label>No photos for season 2012 and older</label>
         <img class="playerImage" 
-        alt="There is no photos for season older than 2012">`
+        alt="There is no photos for season older than 2012"
+        src="/images/not_player.png">`
     }
 
     // display current/last team of this player

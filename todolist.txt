@@ -1,4 +1,4 @@
 1. Implement SOLID
-2. Add badges for minutes played and games played in a season
+2. Add badges for minutes played, games played in a season, free throws % and field goals %
 3. Revisit the design, change colors, improve boxes and spaces
 

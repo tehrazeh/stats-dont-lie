@@ -166,9 +166,9 @@ displayStats = () => {
         document.getElementById('ast').innerHTML = `Assists: ${player_stats.ast}`
         document.getElementById('stl').innerHTML = `Steals: ${player_stats.stl}`
         document.getElementById('blk').innerHTML = `Blocks: ${player_stats.blk}`
-        document.getElementById('field_goals').innerHTML = `Field Goals %: ${player_stats.fg_pct}`
-        document.getElementById('free_throws').innerHTML = `Free Throws %: ${player_stats.ft_pct}`
-        document.getElementById('three_pointers').innerHTML = `3PT %: ${player_stats.fg3_pct}`
+        document.getElementById('fg_pct').innerHTML = `Field Goals %: ${player_stats.fg_pct}`
+        document.getElementById('ft_pct').innerHTML = `Free Throws %: ${player_stats.ft_pct}`
+        document.getElementById('fg3_pct').innerHTML = `3PT %: ${player_stats.fg3_pct}`
 }
 
 // function that displays player's name and size

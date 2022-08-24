@@ -130,14 +130,15 @@ h1 {
 }
 
 .badge {
-    width: 70px;
-    height: 80px;
+    width: 85px;
+    height: 100px;
 }
 
 .badgeContainer {
     position: relative;
     display:flex;
-    margin: 2px;
+    padding: 0 10px;
+    margin: 4px;
     flex-grow: 1;
     flex-direction: column;
     justify-content: center;

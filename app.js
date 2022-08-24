@@ -80,6 +80,18 @@ let badges = [
     description: '40%+ 3PT',
     border_number: 1.5,
     code: 'fg3_pct'}, 
+    {name: 'efficient',
+    description: '50%+ FG',
+    border_number: 0.5,
+    code: 'fg_pct'}, 
+    {name: 'free_thrower',
+    description: '90%+ FT',
+    border_number: 0.9,
+    code: 'ft_pct'}, 
+    {name: 'reliable',
+    description: '70+ GAMES',
+    border_number: 70,
+    code: 'games_played'}, 
 
 ]
 

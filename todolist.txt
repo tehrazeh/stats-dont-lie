@@ -1,2 +1,3 @@
-1. Make the design responsive // all done for now, learn more and improve 
+1. Implement SOLID
+2. Add badges for minutes played and games played in a season
 

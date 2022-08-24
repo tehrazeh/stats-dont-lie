@@ -10,7 +10,6 @@ let playerStatsResponse // stats based on id search
 let player_profile = {} // object with player's info wihtout stats
 let player_stats = {} // object that stores found player's stats
 let playerStats = {} // object that stores found player's stats
-let playerPhotoId = 0 // id for photo retrieval
 let earnedBadges = []
 
 
@@ -207,12 +206,12 @@ async function displayPhotos() {
 
         for (let i = 0; i < arrOfIds.length; i++) {
             if (arrOfIds[i].firstName == playerInfo.data[0].first_name && arrOfIds[i].lastName == playerInfo.data[0].last_name) {
-                playerPhotoId = arrOfIds[i].personId
+                player_profile.photoId = arrOfIds[i].personId
             }
         }
 
         // id for player not found
-        if (playerPhotoId === 0) {
+        if (player_profile.photoId === 0) {
             photoElement.innerHTML = 
             `<label>Player:</label>
             <img class="playerImage" 
@@ -222,7 +221,7 @@ async function displayPhotos() {
             `<label>Player:</label>
             <img class="playerImage" 
             alt="Error Displaying Image"
-            src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerPhotoId}.png">`
+            src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player_profile.photoId}.png">`
         }
     } else { // season is 2012 and newer, no photo can be accessed
         photoElement.innerHTML = 

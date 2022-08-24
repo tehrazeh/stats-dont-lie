@@ -9,8 +9,9 @@ let playerInfo // name + size + id + team, first search, no stats
 let playerStatsResponse // stats based on id search
 let player_profile = {} // object with player's info wihtout stats
 let player_stats = {} // object that stores found player's stats
-let playerStats = {} // object that stores found player's stats
 let earnedBadges = []
+
+let checker = 0 // variable to avoid uneccessary refreshing of html during the first search
 
 // class for basic info of a found player. anything except game stats
 class PlayerProfile {
@@ -31,6 +32,25 @@ class PlayerProfile {
     set photo_id(value) {
         this.photoId = value
     }
+}
+
+class PlayerStats {
+    constructor(
+        pts, reb, ast, blk, stl, fg_pct, fg3_pct,
+        ft_pct, games_played, min) {
+
+            this.pts = pts
+            this.reb = reb
+            this.ast = ast
+            this.blk = blk
+            this.stl = stl
+            this.fg_pct = fg_pct
+            this.fg3_pct = fg3_pct
+            this.ft_pct = ft_pct
+            this.games_played = games_played
+            this.min = min
+        }
+
 }
 
 
@@ -63,10 +83,8 @@ let badges = [
 
 ]
 
-// links to retrieve the data
+// link to retrieve the data
 let searchPlayerUrl = "https://www.balldontlie.io/api/v1/players"
-let searchStatsUrl
-let photoSearchUrl
 
 // HTML elements that will be changed depenging on the search result
 let tag = document.getElementById('search_result')
@@ -83,7 +101,7 @@ resultsBox.style.visibility = "hidden"
 
 // onclick event that runs every time user clicks search button
 getSearchInputs = () => { 
-    resultsBox.style.visibility = "hidden" 
+
     searchName = document.getElementById('inputName').value
     season = document.getElementById('inputSeason').value
     if (searchName == 0) { // case: no name provided 
@@ -93,10 +111,10 @@ getSearchInputs = () => {
     } else { // both name and season provided
         getPlayer(searchName)
     }
-    // refreshes the earned badges container for each new search
-    badgesContainer.innerHTML = 
-    `<label>Badges:</label>
-    <h5 id="badgeChecker"></h5>`
+    if (checker !== 0) {
+        refresher()
+    } 
+    
 }
 
 // function that gets player info if the name is valid
@@ -111,6 +129,7 @@ async function getPlayer(name) {
         tag.innerHTML = `There is no data for seasons older than 1981`
     } else { // case: exactly one player found
 
+        checker = 1 // we found a player, the next search will require refreshing
         // populate player object with id, size, name and team
         player_profile = new PlayerProfile(
             playerInfo.data[0].id, playerInfo.data[0].first_name + " " + playerInfo.data[0].last_name,
@@ -121,31 +140,27 @@ async function getPlayer(name) {
         )
 
         // with the player's id and season, find the stat averages
-        searchStatsUrl = `https://www.balldontlie.io/api/v1/season_averages?season=${season}&player_ids[]=${player_profile.id}`
+        let searchStatsUrl = `https://www.balldontlie.io/api/v1/season_averages?season=${season}&player_ids[]=${player_profile.id}`
         getPlayerStats(searchStatsUrl)
     }
 }
 
 // function that gets the player's stats if he played in the provided season
 async function getPlayerStats(url) {
-    playerStatsResponse = await fetch(searchStatsUrl).then((response) => response.json())
+    playerStatsResponse = await fetch(url).then((response) => response.json())
         if (playerStatsResponse.data == 0) { // case: player did not play that season (injured / was not in the NBA)
             tag.innerHTML = `${player_profile.name} did not play in season ${season}`
         } else { // case: data successfully received
             resultsBox.style.visibility = "visible" // display the result box
 
-            // populate player object with the season averages
-            player_stats.pts = playerStatsResponse.data[0].pts
-            player_stats.reb = playerStatsResponse.data[0].reb
-            player_stats.ast = playerStatsResponse.data[0].ast
-            player_stats.blk = playerStatsResponse.data[0].blk
-            player_stats.stl = playerStatsResponse.data[0].stl
-            player_stats.fg_pct = playerStatsResponse.data[0].fg_pct
-            player_stats.fg3_pct = playerStatsResponse.data[0].fg3_pct
-            player_stats.ft_pct = playerStatsResponse.data[0].ft_pct
-            player_stats.games_played = playerStatsResponse.data[0].games_played
-            player_stats.min = playerStatsResponse.data[0].min
-
+            // create player_stats object and populate it with the season averages
+            player_stats = new PlayerStats(
+                playerStatsResponse.data[0].pts, playerStatsResponse.data[0].reb,
+                playerStatsResponse.data[0].ast, playerStatsResponse.data[0].blk,
+                playerStatsResponse.data[0].stl, playerStatsResponse.data[0].fg_pct,
+                playerStatsResponse.data[0].fg3_pct, playerStatsResponse.data[0].ft_pct,
+                playerStatsResponse.data[0].games_played, playerStatsResponse.data[0].min
+            )
             // functions that display stats, photos of player and team, and earned badges (if there are any)
             displayPhotos()
             displayStats()
@@ -157,18 +172,14 @@ async function getPlayerStats(url) {
 }
 
 // function that displays player's averages
-displayStats = () => {
+displayStats = () => {        
         tag.innerHTML = `Averages for ${player_profile.name} in season ${season}`
-        document.getElementById('games_played').innerHTML = `Games Played: ${player_stats.games_played}`
-        document.getElementById('minutes').innerHTML = `Minutes Averaged: ${player_stats.min}`
-        document.getElementById('pts').innerHTML = `Points: ${player_stats.pts}`
-        document.getElementById('reb').innerHTML = `Rebounds: ${player_stats.reb}`
-        document.getElementById('ast').innerHTML = `Assists: ${player_stats.ast}`
-        document.getElementById('stl').innerHTML = `Steals: ${player_stats.stl}`
-        document.getElementById('blk').innerHTML = `Blocks: ${player_stats.blk}`
-        document.getElementById('fg_pct').innerHTML = `Field Goals %: ${player_stats.fg_pct}`
-        document.getElementById('ft_pct').innerHTML = `Free Throws %: ${player_stats.ft_pct}`
-        document.getElementById('fg3_pct').innerHTML = `3PT %: ${player_stats.fg3_pct}`
+
+        // get the each property for stat and add it to html
+        let properties = Object.getOwnPropertyNames(player_stats)
+        for (prop of properties) {
+            document.getElementById(`${prop}`).innerHTML += player_stats[prop]
+        }
 }
 
 // function that displays player's name and size
@@ -198,7 +209,6 @@ createBadges = (badges, stats) => {
     // block that checks if player earned any badges
     if (earnedBadges.length > 0) { // case: one or more badges earned
         displayBadges() // displays earned badges
-        badges = [] // refreshes the badges array from previous search result
     } else { // case: no badges earned, displays the appropriate message
         document.getElementById('badgeChecker').innerHTML = `${player_profile.name} did not earn <br> any badges in ${season} season`
     }
@@ -258,3 +268,36 @@ async function displayPhotos() {
 
 }
 
+
+const refresher = () => {
+   
+    // refreshes the earned badges container for each new search
+    badgesContainer.innerHTML = 
+    `<label>Badges:</label>
+    <h5 id="badgeChecker"></h5>`
+
+    // refreshes the stats container for each new search
+    document.getElementById('seasonStats').innerHTML =
+    `<h5 id="games_played">Games Played: </h5>
+    <br><br>
+    <h5 id="min">Minutes Averaged: </h5>
+    <br>                 
+    <br>                 
+    <h5 id="pts">Points: </h5>&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="reb">Rebounds: </h5>
+    <br>
+    <br>
+    <h5 id="ast">Assists: </h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="blk">Blocks: </h5>
+    <br>
+    <br>
+    <h5 id="stl">Steals: </h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="fg_pct">Field Goals %: </h5>
+    <br>
+    <br>
+    <h5 id="ft_pct">Free Throws %: </h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="fg3_pct">3PT %: </h5> `
+
+    earnedBadges = [] // refreshes the badges array from previous search result
+
+}

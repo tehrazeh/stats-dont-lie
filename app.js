@@ -12,6 +12,27 @@ let player_stats = {} // object that stores found player's stats
 let playerStats = {} // object that stores found player's stats
 let earnedBadges = []
 
+// class for basic info of a found player. anything except game stats
+class PlayerProfile {
+    constructor(
+        id, name, height_feet, height_cm,
+        weight_pounds, weight_kilos, team) {
+
+        this.id = id,
+        this.name = name,
+        this. height_feet = height_feet,
+        this.height_cm = height_cm,
+        this.weight_pounds = weight_pounds,
+        this.weight_kilos = weight_kilos,
+        this.team = team        
+    }
+
+    // photo id is another api call, so it gets assigned after creation
+    set photo_id(value) {
+        this.photoId = value
+    }
+}
+
 
 // array for all possible badges a player can earn
 let badges = [
@@ -91,13 +112,13 @@ async function getPlayer(name) {
     } else { // case: exactly one player found
 
         // populate player object with id, size, name and team
-        player_profile.id = playerInfo.data[0].id      
-        player_profile.name = playerInfo.data[0].first_name + " " + playerInfo.data[0].last_name
-        player_profile.height_feet = playerInfo.data[0].height_feet + "'" + playerInfo.data[0].height_inches
-        player_profile.height_cm = Math.round(playerInfo.data[0].height_feet * feetToCm  + playerInfo.data[0].height_inches * inchToCm)
-        player_profile.weight_pounds = playerInfo.data[0].weight_pounds
-        player_profile.weight_kilos = Math.round(playerInfo.data[0].weight_pounds * poundToKg)
-        player_profile.team = playerInfo.data[0].team.name.toLowerCase().split(' ').join('') // for teams like trail blazers we eliminate spaces
+        player_profile = new PlayerProfile(
+            playerInfo.data[0].id, playerInfo.data[0].first_name + " " + playerInfo.data[0].last_name,
+            playerInfo.data[0].height_feet + "'" + playerInfo.data[0].height_inches,
+            Math.round(playerInfo.data[0].height_feet * feetToCm  + playerInfo.data[0].height_inches * inchToCm),
+            playerInfo.data[0].weight_pounds, Math.round(playerInfo.data[0].weight_pounds * poundToKg),
+            playerInfo.data[0].team.name.toLowerCase().split(' ').join('') // for teams like trail blazers we eliminate spaces
+        )
 
         // with the player's id and season, find the stat averages
         searchStatsUrl = `https://www.balldontlie.io/api/v1/season_averages?season=${season}&player_ids[]=${player_profile.id}`
@@ -206,7 +227,7 @@ async function displayPhotos() {
 
         for (let i = 0; i < arrOfIds.length; i++) {
             if (arrOfIds[i].firstName == playerInfo.data[0].first_name && arrOfIds[i].lastName == playerInfo.data[0].last_name) {
-                player_profile.photoId = arrOfIds[i].personId
+                player_profile.photo_id = arrOfIds[i].personId
             }
         }
 

@@ -269,7 +269,7 @@ async function displayPhotos() {
         }
     } else { // season is 2012 and newer, no photo can be accessed
         photoElement.innerHTML = 
-        `<label>No photos for season 2012 and older</label>
+        `<label>No photos available for season 2012 and older</label>
         <img class="playerImage" 
         alt="There is no photos for season older than 2012"
         src="/images/not_player.png">`

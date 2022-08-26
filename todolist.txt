@@ -1,5 +1,2 @@
-1. Implement SOLID
-2. Change layout of badges box, so it has 4 badges in full screen on one line
-3. Revisit the design, change colors, improve boxes and spaces
-4. Change fonts
-5. Increase team image
+Nothing so far, good job man!
+

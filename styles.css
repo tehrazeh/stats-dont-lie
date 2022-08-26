@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 :root {
     --main-radius: 5px;
 }
 
 body {
-    font-family: 'Raleway', sans-serif;
-    background: #023e8a;
+    font-family: 'Roboto', sans-serif;
+    background: #212529;
 }
 
 #container {
@@ -21,11 +21,11 @@ body {
     grid-gap: 0.3rem;
     text-transform: uppercase;
     font-size: 20px;
-    color: #caf0f8;
+    color: #f8f9fa;
 }
 
 nav {
-    background: #4895ef;
+    background: #495057;
     grid-area: nav;
     border-radius: var(--main-radius);
     display: flex;
@@ -34,20 +34,20 @@ nav {
 }
 
 main {
-    background: #4cc9f0;
+    background: #343a40;
     grid-area: main;
     border-radius: var(--main-radius);  
 }
     
     
 #sidebar {
-    background: #4cc9f0;
+    background: #343a40;
     grid-area: sidebar;
     border-radius: var(--main-radius);   
 }  
 
 footer {
-    background: #4895ef;
+    background: #495057;
     grid-area: footer;
     border-radius: var(--main-radius);
     display: flex; 
@@ -57,7 +57,7 @@ footer {
 }
 
 .button {
-    background-color: #023e8a;
+    background-color: #495057;
     height: 50px;
     width: 180px;
     margin-top: 20px;
@@ -67,13 +67,13 @@ footer {
     border-radius: 5px;
     overflow: hidden;
     cursor: pointer;
-    color:#caf0f8;
+    color:#f8f9fa;
     font-size: 18px;
     text-align: center;
 }
 
 .button:hover {
-    background-color: #4361ee;
+    background-color: #6c757d;
 }
 
 
@@ -82,10 +82,10 @@ footer {
 }
 
 input {
-    background-color:#caf0f8;
+    background-color:#f8f9fa;
     text-decoration: none;
     border-radius: var(--main-radius);
-    border: solid 2px #4361ee;
+    border: solid 2px #495057;
     height: 60px;
     width: 200px;
 }
@@ -126,8 +126,8 @@ h1 {
 
 .statsContainer {
     margin: 50px;
-    background: #4361ee;
-    border:  6px solid #1d3557;
+    background: #495057;
+    border:  6px solid #6c757d;
     border-radius: var(--main-radius);
     padding: 0 20px;
 }
@@ -137,8 +137,8 @@ h1 {
     max-width: 800px;
     flex-wrap: wrap;
     margin: 5px;
-    background: #4361ee;
-    border:  6px solid #1d3557;
+    background: #495057;
+    border:  6px solid #6c757d;
     border-radius: var(--main-radius);
 }
 
@@ -177,8 +177,8 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #213175;
-    border:  6px solid #0e1d31;
+    background: #bcb8b1;
+    border:  3px solid #463f3a;
     border-radius: var(--main-radius);
 }
 

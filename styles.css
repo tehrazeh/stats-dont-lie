@@ -107,23 +107,36 @@ h1 {
     margin-right: 150px;
 }
 
-.playerImage, .teamImage {
-    margin: 0;
-    padding: 0;
+.playerImage {
+    border: 4px double black;
+    margin: 0 auto;
     width: 300px;
     height: 220px;
 }
 
+#playerPhoto {
+    max-width: 310px;
+}
+
+.teamImage {
+    margin: 0 auto;
+    width: 400px;
+    height: 300px;
+}
+
 .statsContainer {
-    margin: 40px;
+    margin: 50px;
     background: #4361ee;
     border:  6px solid #1d3557;
     border-radius: var(--main-radius);
-    padding: 10px 20px;
+    padding: 0 20px;
 }
 
 #badges {
     display:flex;
+    max-width: 800px;
+    flex-wrap: wrap;
+    margin: 5px;
     background: #4361ee;
     border:  6px solid #1d3557;
     border-radius: var(--main-radius);
@@ -134,9 +147,30 @@ h1 {
     height: 100px;
 }
 
+#photos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#earnedBadges {
+    margin: 20px auto;
+    display: flex;
+    max-width: 300px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .badgeContainer {
     position: relative;
     display:flex;
+    max-width: 180px;
     padding: 0 10px;
     margin: 4px;
     flex-grow: 1;
@@ -152,29 +186,14 @@ main {
     text-align: center;
 }
 
-#resultsBox {
-    display: flex;
-    flex-grow: 1; 
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-}
-
 #seasonStats h5 {
     display: inline;
 }
 
-.statsContainer.photos {
-    margin: 100px 50px;
-}
-
-#playerPhoto, #teamContainer {
-    max-width: 400px;
-}
-
-.playerImage, .teamImage {
-    display: block;
+#playerProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .badge_description {
@@ -198,6 +217,7 @@ main {
 .badge_description:hover {
     opacity: 1;
 }
+
 
 @media screen and (max-width: 800px)  {
     #container{
@@ -224,10 +244,12 @@ main {
         margin: 10px auto;
         max-width: 500px;
         display:flex;
+        align-items: center;
         flex-wrap: wrap;
     }
 
     .badgeContainer {
         margin: 5px 30px;
     }
+
 }

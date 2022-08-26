@@ -287,8 +287,7 @@ const refresher = () => {
    
     // refreshes the earned badges container for each new search
     badgesContainer.innerHTML = 
-    `<label>Badges:</label>
-    <h5 id="badgeChecker"></h5>`
+    `<h5 id="badgeChecker"></h5>`
 
     // refreshes the stats container for each new search
     document.getElementById('seasonStats').innerHTML =
@@ -313,5 +312,9 @@ const refresher = () => {
     <h5 id="fg3_pct">3PT %: </h5> `
 
     earnedBadges = [] // refreshes the badges array from previous search result
+    player_profile = 0
+    player_stats = 0
+    resultsBox.style.visibility = "hidden"
+
 
 }

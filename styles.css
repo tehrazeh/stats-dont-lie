@@ -125,6 +125,7 @@ h1 {
 }
 
 .statsContainer {
+    position: relative;
     margin: 50px;
     background: #495057;
     border:  6px solid #6c757d;
@@ -196,7 +197,7 @@ main {
     justify-content: center;
 }
 
-.badge_description {
+.badge_description, .player_photo_description, .team_photo_description {
     position: absolute;
     top: 0;
     left: 0;
@@ -214,7 +215,7 @@ main {
     transition: opacity 0.25s;
 }
 
-.badge_description:hover {
+.badge_description:hover, .player_photo_description:hover, .team_photo_description:hover {
     opacity: 1;
 }
 

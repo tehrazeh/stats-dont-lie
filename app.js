@@ -17,7 +17,7 @@ let checker = 0 // variable to avoid uneccessary refreshing of html during the f
 class PlayerProfile {
     constructor(
         id, name, height_feet, height_cm,
-        weight_pounds, weight_kilos, team) {
+        weight_pounds, weight_kilos, team, full_team_name) {
 
         this.id = id,
         this.name = name,
@@ -25,7 +25,8 @@ class PlayerProfile {
         this.height_cm = height_cm,
         this.weight_pounds = weight_pounds,
         this.weight_kilos = weight_kilos,
-        this.team = team        
+        this.team = team
+        this.full_team_name = full_team_name      
     }
 
     // photo id is another api call, so it gets assigned after creation
@@ -148,9 +149,9 @@ async function getPlayer(name) {
             playerInfo.data[0].height_feet + "'" + playerInfo.data[0].height_inches,
             Math.round(playerInfo.data[0].height_feet * feetToCm  + playerInfo.data[0].height_inches * inchToCm),
             playerInfo.data[0].weight_pounds, Math.round(playerInfo.data[0].weight_pounds * poundToKg),
-            playerInfo.data[0].team.name.toLowerCase().split(' ').join('') // for teams like trail blazers we eliminate spaces
+            playerInfo.data[0].team.name.toLowerCase().split(' ').join(''), // for teams like trail blazers we eliminate spaces
+            playerInfo.data[0].team.full_name
         )
-
         // with the player's id and season, find the stat averages
         let searchStatsUrl = `https://www.balldontlie.io/api/v1/season_averages?season=${season}&player_ids[]=${player_profile.id}`
         getPlayerStats(searchStatsUrl)
@@ -265,7 +266,8 @@ async function displayPhotos() {
             `<label>Player:</label>
             <img class="playerImage" 
             alt="Error Displaying Image"
-            src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player_profile.photoId}.png">`
+            src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player_profile.photoId}.png">
+            <p class="player_photo_description">${player_profile.name}</p>`
         }
     } else { // season is 2012 and newer, no photo can be accessed
         photoElement.innerHTML = 
@@ -278,7 +280,8 @@ async function displayPhotos() {
     // display current/last team of this player
     document.getElementById('teamContainer').innerHTML = `
         <label>Current (Last) Team:</label>
-        <img class="teamImage" src="images/teams/${player_profile.team}.png">`
+        <img class="teamImage" src="images/teams/${player_profile.team}.png">
+        <p class="team_photo_description">${player_profile.full_team_name}</p>`
 
 }
 

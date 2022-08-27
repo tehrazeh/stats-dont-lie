@@ -85,7 +85,7 @@ let badges = [
     description: '50%+ FG',
     border_number: 0.5,
     code: 'fg_pct'}, 
-    {name: 'free_thrower',
+    {name: 'freethrower',
     description: '90%+ FT',
     border_number: 0.9,
     code: 'ft_pct'}, 
@@ -111,6 +111,21 @@ const poundToKg = 0.453592
 
 // hidden results box
 resultsBox.style.visibility = "hidden"
+
+// function that displays all the badges player can earn, also adds hover text with the badge name
+displayAvailableBadges = () => {
+    let available_badges_container = document.getElementById('badges')
+    for (let badge of badges) {
+        available_badges_container.innerHTML += 
+        `<div class="badgeContainer">
+            <h5>${badge.description}</h5>
+            <img class="badge" src="images/badges/${badge.name}.png">
+            <h6 class="badge_description">${badge.name}</h6>
+        </div>`
+    }
+}
+
+displayAvailableBadges()
 
 // onclick event that runs every time user clicks search button
 getSearchInputs = () => { 
@@ -318,6 +333,4 @@ const refresher = () => {
     player_profile = 0
     player_stats = 0
     resultsBox.style.visibility = "hidden"
-
-
 }

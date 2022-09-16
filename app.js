@@ -79,15 +79,15 @@ let badges = [
     code: 'blk'}, 
     {name: 'sharpshooter',
     description: '40%+ 3PT',
-    border_number: 1.5,
+    border_number: 40,
     code: 'fg3_pct'}, 
     {name: 'efficient',
     description: '50%+ FG',
-    border_number: 0.5,
+    border_number: 50,
     code: 'fg_pct'}, 
     {name: 'freethrower',
     description: '90%+ FT',
-    border_number: 0.9,
+    border_number: 90,
     code: 'ft_pct'}, 
     {name: 'reliable',
     description: '70+ GAMES',
@@ -185,8 +185,9 @@ async function getPlayerStats(url) {
             player_stats = new PlayerStats(
                 playerStatsResponse.data[0].pts, playerStatsResponse.data[0].reb,
                 playerStatsResponse.data[0].ast, playerStatsResponse.data[0].blk,
-                playerStatsResponse.data[0].stl, playerStatsResponse.data[0].fg_pct,
-                playerStatsResponse.data[0].fg3_pct, playerStatsResponse.data[0].ft_pct,
+                playerStatsResponse.data[0].stl, roundPercentages(playerStatsResponse.data[0].fg_pct * 100),
+                roundPercentages(playerStatsResponse.data[0].fg3_pct * 100),
+                roundPercentages(playerStatsResponse.data[0].ft_pct * 100),
                 playerStatsResponse.data[0].games_played, playerStatsResponse.data[0].min
             )
             // functions that display stats, photos of player and team, and earned badges (if there are any)
@@ -333,4 +334,8 @@ const refresher = () => {
     player_profile = 0
     player_stats = 0
     resultsBox.style.visibility = "hidden"
+}
+
+const roundPercentages = (value) => {
+    return Math.round(value * 100) / 100
 }

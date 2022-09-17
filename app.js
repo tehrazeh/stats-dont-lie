@@ -151,11 +151,14 @@ getSearchInputs = () => {
     searchName = document.getElementById('inputName').value
     season = document.getElementById('inputSeason').value
     if (searchName == 0) { // case: no name provided 
-        alert('Please specify the Name')
+        errorDisplay('noNameInput')
+
     } else if (season == 0) { // case: no season provided
-        alert('Please specify the Season')
+        errorDisplay('noSeasonInput')
+
     } else if (Number.isNaN(Number(season)) === true) { // NaN provided for a season value
-        alert('Invalid season value. Please provide a number')
+        errorDisplay('invalidSeasonValue')
+
     } else { // inputs are provided, season is a number
         getPlayer(searchName)
         if (checker !== 0) {
@@ -165,7 +168,17 @@ getSearchInputs = () => {
 }
     const errorDisplay = (errorType) => {
         switch (errorType) {
-            case 'oldSeason':
+            case 'invalidSeasonValue':
+                tag.innerHTML = `Invalid season value. Please provide a number`
+                break;
+            case 'noSeasonInput':
+                tag.innerHTML = `Please specify the Season`
+                break;  
+            case 'noNameInput':
+                tag.innerHTML = `Please specify the Name`
+                break;
+            default:
+                tag.innerHTML = `Unexpected error. Please try later`  
         }
     }
     // function that gets player info if the name is valid

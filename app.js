@@ -282,13 +282,14 @@ createBadges = (badges, stats) => {
 
 // function that displays player's badges for the season. Runs only if player has 1+ badges.
 displayBadges = () => {
+    badgesContainer.innerHTML = `<h5>${player_profile.name} earned following badges in ${season} season</h5>`
     for (let badge of earnedBadges) {
         badgesContainer.innerHTML +=
             `<div class="badgeContainer">
             <img class="badge" src="images/badges/${badge.name}.png">
             <p class="badge_description">${badge.description}</p>
         </div>`
-    }
+    } 
 }
 
 // function that displays images of player and team

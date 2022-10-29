@@ -130,6 +130,8 @@ const poundToKg = 0.453592
 // hidden results box
 resultsBox.style.visibility = "hidden"
 
+
+
 // function that displays all the badges player can earn, also adds hover text with the badge name
 displayAvailableBadges = () => {
     let available_badges_container = document.getElementById('badges')
@@ -144,6 +146,19 @@ displayAvailableBadges = () => {
 }
 
 displayAvailableBadges()
+
+
+// event listener that triggers search if the user clicks enter
+document.querySelectorAll('.inputField').forEach(item => {
+    item.addEventListener("keypress", event => {
+        if (event.key === "Enter") {
+            event.preventDefault()
+             document.getElementById("searchButton").click()
+        }
+    })
+})
+
+
 
 // onclick event that runs every time user clicks search button
 getSearchInputs = () => {

@@ -313,7 +313,7 @@ async function displayPhotos() {
 
     // the database requires to specify the season. no data can be acessed if the season is older than 2012
     if (season >= 2012) {
-        let result = await fetch(`http://data.nba.net/data/10s/prod/v1/${season}/players.json`).then((response) => response.json())
+        let result = await fetch(`https://data.nba.net/data/10s/prod/v1/${season}/players.json`).then((response) => response.json())
         let arrOfIds = result.league.standard
 
         for (let i = 0; i < arrOfIds.length; i++) {

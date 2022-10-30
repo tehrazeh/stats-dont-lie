@@ -363,23 +363,14 @@ const refresher = () => {
     // refreshes the stats container for each new search
     document.getElementById('seasonStats').innerHTML =
         `<h5 id="games_played">Games Played: </h5>
-    <br><br>
-    <h5 id="min">Minutes Averaged: </h5>
-    <br>                 
-    <br>                 
-    <h5 id="pts">Points: </h5>&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="min">Minutes Averaged: </h5>             
+    <h5 id="pts">Points: </h5>
     <h5 id="reb">Rebounds: </h5>
-    <br>
-    <br>
-    <h5 id="ast">Assists: </h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="ast">Assists: </h5>
     <h5 id="blk">Blocks: </h5>
-    <br>
-    <br>
-    <h5 id="stl">Steals: </h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="stl">Steals: </h5>
     <h5 id="fg_pct">Field Goals %: </h5>
-    <br>
-    <br>
-    <h5 id="ft_pct">Free Throws %: </h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h5 id="ft_pct">Free Throws %: </h5>
     <h5 id="fg3_pct">3PT %: </h5> `
 
     earnedBadges = [] // refreshes the badges array from previous search result

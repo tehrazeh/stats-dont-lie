@@ -21,15 +21,17 @@
                 <br>
                 <label>Specify the year <br> of the season</label>
                 <input id="inputSeason" class="inputField" type="text" placeholder="Enter a season year">
+                <a href="#mainResultWindow">
                 <button class="button" id="searchButton" onclick="getSearchInputs()">Search</button>
+                </a>
             </div>
             <label>Available badges:</label>
             <div id="badges">              
             </div>
         </div>
 
-        <main>
-            <h3 id="search_result"></h3>
+        <main id="mainResultWindow">
+            <h4 id="search_result"></h4>
             <div id="resultsBox">
                 <div id="photos">
                     <div id="playerPhoto" class="statsContainer">

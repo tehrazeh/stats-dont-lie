@@ -153,7 +153,7 @@ document.querySelectorAll('.inputField').forEach(item => {
     item.addEventListener("keypress", event => {
         if (event.key === "Enter") {
             event.preventDefault()
-             document.getElementById("searchButton").click()
+            document.getElementById("searchButton").click()
         }
     })
 })
@@ -195,7 +195,9 @@ const errorDisplay = (errorType) => {
         default:
             tag.innerHTML = `Unexpected error. Please try later`
     }
+
 }
+
 // function that gets player info if the name is valid
 async function getPlayer(name) {
     playerInfo = await fetch(searchPlayerUrl + `?search=${searchName}`).then((response) => response.json())
@@ -252,7 +254,7 @@ async function getPlayerStats(url) {
 }
 
 // function that displays player's averages
-displayStats = () => {
+const displayStats = () => {
     tag.innerHTML = `Averages for ${player_profile.name} in season ${season}`
 
     // get the each property for stat and add it to html
@@ -263,7 +265,7 @@ displayStats = () => {
 }
 
 // function that displays player's name and size
-displayProfile = () => {
+const displayProfile = () => {
     document.getElementById('name').innerHTML = `Name: ${player_profile.name}`
     if (player_profile.height_cm == 0) {
         document.getElementById('height').innerHTML = 'Height: No Data'
@@ -278,7 +280,7 @@ displayProfile = () => {
 }
 
 // function that analyzes if player earned any badges.
-createBadges = (badges, stats) => {
+const createBadges = (badges, stats) => {
 
     badges.forEach(badge => {
         if (stats[badge.code] >= badge.border_number) {
@@ -296,7 +298,7 @@ createBadges = (badges, stats) => {
 }
 
 // function that displays player's badges for the season. Runs only if player has 1+ badges.
-displayBadges = () => {
+const displayBadges = () => {
     badgesContainer.innerHTML = `<h5>${player_profile.name} earned following badges in ${season} season</h5>`
     for (let badge of earnedBadges) {
         badgesContainer.innerHTML +=
@@ -304,11 +306,17 @@ displayBadges = () => {
             <img class="badge" src="images/badges/${badge.name}.png">
             <p class="badge_description">${badge.description}</p>
         </div>`
-    } 
+    }
 }
 
 // function that displays images of player and team
 async function displayPhotos() {
+
+    // display current/last team of this player
+    document.getElementById('teamContainer').innerHTML = `
+        <label>Current (Last) Team:</label>
+        <img class="teamImage" src="images/teams/${player_profile.team}.png">
+        <p class="team_photo_description">${player_profile.full_team_name}</p>`
     let photoElement = document.getElementById('playerPhoto')
 
     // the database requires to specify the season. no data can be acessed if the season is older than 2012
@@ -344,13 +352,6 @@ async function displayPhotos() {
         alt="There is no photos for season older than 2012"
         src="/images/not_player.png">`
     }
-
-    // display current/last team of this player
-    document.getElementById('teamContainer').innerHTML = `
-        <label>Current (Last) Team:</label>
-        <img class="teamImage" src="images/teams/${player_profile.team}.png">
-        <p class="team_photo_description">${player_profile.full_team_name}</p>`
-
 }
 
 

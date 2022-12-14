@@ -266,7 +266,7 @@ h1 {
     }
 
     #badges {
-        width: 70%;
+        width: 95%;
         display:flex;
         justify-content: center;
         align-items: center;
@@ -274,7 +274,7 @@ h1 {
     }
 
     .badgeContainer {
-        margin: 5px 20px;
+        margin: 5px;
     }
 
     #teamContainer {
@@ -299,14 +299,23 @@ h1 {
     }
 
     #badges {
-        width: 200px;
+        width: 90%;
+        padding: 0;
+    }
+
+    .badge {
+        margin: 0;
+        padding: 0;
+        width: 40px;
     }
 
     .badgeContainer {
-        margin: 5px;
-    }
-    .badge {
-        width: 100px;
+        width: 20%;
+        margin: 2px;
+        padding: 4px;
+        flex-grow: 0;
+        font-size: 0.8em;
+        align-items: center;
     }
 
     .statsContainer {

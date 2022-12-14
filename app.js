@@ -1,4 +1,3 @@
-//import fetch from 'node-fetch';
 
 // user inputs for player search
 let searchName = '' // name input
@@ -27,6 +26,7 @@ class PlayerProfile {
             this.weight_kilos = weight_kilos,
             this.team = team
         this.full_team_name = full_team_name
+        this.photoId = 0
     }
 
     // photo id is another api call, so it gets assigned after creation
@@ -321,15 +321,23 @@ async function displayPhotos() {
 
     // the database requires to specify the season. no data can be acessed if the season is older than 2012
     if (season >= 2012) {
-        let result = await fetch(`https://data.nba.net/data/10s/prod/v1/${season}/players.json`).then((response) => response.json())
-        let arrOfIds = result.league.standard
+        let result = await fetch(`https://data.nba.net/data/10s/prod/v1/${season}/players.json`).
+        then((response) => response.json()).catch(() => {
+            photoElement.innerHTML =
+            `<label>Error displaying player image</label>
+        <img class="playerImage" 
+        alt="Error Displaying Image"
+        src="/images/not_player.png">`
+        })
+        let arrOfIds = result?.league?.standard
 
-        for (let i = 0; i < arrOfIds.length; i++) {
-            if (arrOfIds[i].firstName == playerInfo.data[0].first_name && arrOfIds[i].lastName == playerInfo.data[0].last_name) {
-                player_profile.photo_id = arrOfIds[i].personId
+        if (arrOfIds) {
+            for (let i = 0; i < arrOfIds.length; i++) {
+                if (arrOfIds[i].firstName == playerInfo.data[0].first_name && arrOfIds[i].lastName == playerInfo.data[0].last_name) {
+                    player_profile.photoId = arrOfIds[i].personId
+                }
             }
         }
-
         // id for player not found
         if (player_profile.photoId === 0) {
             photoElement.innerHTML =
@@ -341,7 +349,7 @@ async function displayPhotos() {
             photoElement.innerHTML =
                 `<label>Player:</label>
             <img class="playerImage" 
-            alt="Error Displaying Image"
+            alt="player"
             src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player_profile.photoId}.png">
             <p class="player_photo_description">${player_profile.name}</p>`
         }
@@ -352,6 +360,7 @@ async function displayPhotos() {
         alt="There is no photos for season older than 2012"
         src="/images/not_player.png">`
     }
+    console.log(player_profile)
 }
 
 
